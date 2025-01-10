@@ -1,8 +1,8 @@
 openapi: 3.0.0
-servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/JACOB_24/TAPS_TOOLKIT/1.0.0
+#servers:
+# Added by API Auto Mocking Plugin
+#  - description: SwaggerHub API Auto Mocking
+#    url: https://virtserver.swaggerhub.com/JACOB_24/TAPS_TOOLKIT/1.0.0
 info:
   version: "1.0.0"
   title: TAPS Toolkit
@@ -63,7 +63,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IdentityWithElo'
+                $ref: '#/components/schemas/Elo'
+  /identities/start-import-session:
+    post:
+      summary: Start an identity import session
+      operationId: startImportSession
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityStartImportSessionRequest'
+      responses:
+        '200':
+          description: The import session response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityStartImportSessionResponse'
+  /identities/complete-import-session:
+    post:
+      summary: Complete an identity import session
+      operationId: completeImportSession
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityCompleteImportSessionRequest'
+      responses:
+        '200':
+          description: The import session response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityCompleteImportSessionResponse'
 components:
   securitySchemes:
     bearerAuth:
@@ -73,6 +109,13 @@ components:
   schemas:
     Identity:
       type: object
+      required:
+        - uid
+        - deviceUid
+        - isBanned
+        - isDeleted
+        - usdBalance
+        - gemsBalance
       properties:
         uid:
           type: string
@@ -88,11 +131,44 @@ components:
         gemsBalance:
           type: integer
           format: int64
-    IdentityWithElo:
-      allOf:
-        - $ref: '#/components/schemas/Identity'
-        - type: object
-          properties:
-            elo:
-              type: number
-              format: double
+    Elo:
+      required:
+        - elo
+      properties:
+        elo:
+          type: number
+          format: double
+    IdentityStartImportSessionRequest:
+      type: object
+      required:
+        - phone
+      properties:
+        phone:
+          type: string
+    IdentityStartImportSessionResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    IdentityCompleteImportSessionRequest:
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          type: string
+    IdentityCompleteImportSessionResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
