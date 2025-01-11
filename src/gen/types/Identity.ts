@@ -1,26 +1,26 @@
 export type Identity = {
   /**
-   * @type string | undefined
+   * @type string
    */
-  uid?: string
+  uid: string
   /**
-   * @type string | undefined
+   * @type string
    */
-  deviceUid?: string
+  deviceUid: string
   /**
-   * @type boolean | undefined
+   * @type boolean
    */
-  isBanned?: boolean
+  isBanned: boolean
   /**
-   * @type boolean | undefined
+   * @type boolean
    */
-  isDeleted?: boolean
+  isDeleted: boolean
   /**
-   * @type integer | undefined, int64
+   * @type integer, int64
    */
-  usdBalance?: number
+  usdBalance: number
   /**
-   * @type integer | undefined, int64
+   * @type integer, int64
    */
-  gemsBalance?: number
+  gemsBalance: number
 }

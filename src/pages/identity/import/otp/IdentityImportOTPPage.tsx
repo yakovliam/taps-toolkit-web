@@ -17,6 +17,10 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useNavigate } from "react-router";
+import useAuthenticatedClientConfig from "@/hooks/use-authenticated-client-config";
+import { useCompleteImportSession } from "@/gen";
+import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   pin: z.string().min(6, {
@@ -25,6 +29,12 @@ const formSchema = z.object({
 });
 
 const IdentityImportOTPPage = () => {
+  const navigate = useNavigate();
+  const config = useAuthenticatedClientConfig();
+  const { mutate: completeImportSession } = useCompleteImportSession({
+    ...config,
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,7 +43,26 @@ const IdentityImportOTPPage = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const pin = values.pin;
+    completeImportSession(
+      {
+        data: {
+          code: pin,
+        },
+      },
+      {
+        onSuccess: () => {
+          navigate("/identity/list");
+        },
+        onError: (error) => {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        },
+      }
+    );
   }
 
   return (

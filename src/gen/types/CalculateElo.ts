@@ -1,4 +1,4 @@
-import type { IdentityWithElo } from './IdentityWithElo.ts'
+import type { Elo } from './Elo.ts'
 
 export type CalculateEloPathParams = {
   /**
@@ -11,7 +11,7 @@ export type CalculateEloPathParams = {
 /**
  * @description The ELO of the identity
  */
-export type CalculateElo200 = IdentityWithElo
+export type CalculateElo200 = Elo
 
 export type CalculateEloQueryResponse = CalculateElo200
 

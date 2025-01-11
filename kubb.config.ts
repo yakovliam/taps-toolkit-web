@@ -7,7 +7,7 @@ export default defineConfig({
   name: "taps-toolkit-openapi",
   root: "./",
   input: {
-    path: "./taps-toolkit-openapi.yaml",
+    path: "https://raw.githubusercontent.com/yakovliam/taps-toolkit-meta/refs/heads/main/openapi.yaml",
   },
   output: {
     path: "./src/gen",

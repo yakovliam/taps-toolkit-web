@@ -5,6 +5,7 @@ import {
   CircleDollarSign,
   Fingerprint,
   Gamepad2,
+  Smartphone,
 } from "lucide-react";
 
 import TAPSLogo from "@/assets/taps-toolkit-logo.svg?react";
@@ -45,6 +46,21 @@ const data = {
         {
           title: "Import",
           url: "/identity/import",
+        },
+      ],
+    },
+    {
+      title: "Devices",
+      url: "#",
+      icon: Smartphone,
+      items: [
+        {
+          title: "List",
+          url: "/device/list",
+        },
+        {
+          title: "Import",
+          url: "/device/import",
         },
       ],
     },

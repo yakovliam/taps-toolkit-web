@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "./components/ui/toaster";
 import IdentityImportPage from "./pages/identity/import/IdentityImportPage";
 import IdentityImportOTPPage from "./pages/identity/import/otp/IdentityImportOTPPage";
+import DeviceListPage from "./pages/device/list/DeviceListPage";
 
 const App = () => {
   return (
@@ -48,7 +49,8 @@ const App = () => {
                 </Route>
 
                 <Route path="device">
-                  <Route index element={<div>Device index page</div>} />
+                  <Route index element={<Navigate to="list" />} />
+                  <Route path="list" element={<DeviceListPage />} />
                   <Route path=":uid">
                     <Route index element={<div>Device specific page</div>} />
                   </Route>

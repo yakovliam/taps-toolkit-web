@@ -131,7 +131,13 @@ const IdentityTable = ({ data }: IdentityTableProps) => {
       accessorKey: "deviceUid",
       header: "Device UID",
       cell: ({ row }) => (
-        <Button variant={"link"} className="m-0 p-0">
+        <Button
+          variant={"link"}
+          className="m-0 p-0"
+          onClick={() => {
+            navigate(`/device/${row.getValue("deviceUid")}`);
+          }}
+        >
           {row.getValue("deviceUid")}
           <ExternalLink />
         </Button>
