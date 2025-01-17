@@ -13,6 +13,12 @@ import { Toaster } from "./components/ui/toaster";
 import IdentityImportPage from "./pages/identity/import/IdentityImportPage";
 import IdentityImportOTPPage from "./pages/identity/import/otp/IdentityImportOTPPage";
 import DeviceListPage from "./pages/device/list/DeviceListPage";
+import IdentitySpecificPage from "./pages/identity/specific/IdentitySpecificPage";
+import DeviceSpecificPage from "./pages/device/specific/DeviceSpecificPage";
+import JobListPage from "./pages/job/list/JobListPage";
+import MapDeviecAllPage from "./pages/map/device/MapDeviceAllPage";
+import MapDeviceSpecificPage from "./pages/map/device/MapDeviceSpecificPage";
+import JobCreatePage from "./pages/job/create/JobCreatePage";
 
 const App = () => {
   return (
@@ -42,8 +48,8 @@ const App = () => {
                     <Route index element={<IdentityImportPage />} />
                     <Route path="otp" element={<IdentityImportOTPPage />} />
                   </Route>
-                  <Route path=":uid">
-                    <Route index element={<div>Identity specific page</div>} />
+                  <Route path=":id">
+                    <Route index element={<IdentitySpecificPage />} />
                     <Route path="elo" element={<IdentityEloPage />} />
                   </Route>
                 </Route>
@@ -51,9 +57,31 @@ const App = () => {
                 <Route path="device">
                   <Route index element={<Navigate to="list" />} />
                   <Route path="list" element={<DeviceListPage />} />
-                  <Route path=":uid">
-                    <Route index element={<div>Device specific page</div>} />
+                  <Route path=":id">
+                    <Route index element={<DeviceSpecificPage />} />
                   </Route>
+                </Route>
+
+                <Route path="job">
+                  <Route index element={<Navigate to="list" />} />
+                  <Route path="list" element={<JobListPage />} />
+                  <Route path="create" element={<JobCreatePage />} />
+                  <Route path=":id">
+                    <Route index element={<div>Job Specific Page</div>} />
+                  </Route>
+                </Route>
+
+                <Route path="map">
+                  <Route index element={<Navigate to="all-devices" />} />
+                  <Route path="all-devices" element={<MapDeviecAllPage />} />
+                  <Route path="device/:id">
+                    <Route index element={<MapDeviceSpecificPage />} />
+                  </Route>
+
+                  <Route
+                    path="*"
+                    element={<Navigate to="/map/all-devices" />}
+                  />
                 </Route>
               </Route>
             </Route>

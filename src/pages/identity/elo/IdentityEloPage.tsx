@@ -6,9 +6,9 @@ import useAuthenticatedClientConfig from "@/hooks/use-authenticated-client-confi
 import { useParams } from "react-router";
 
 const IdentityEloPage = () => {
-  const { uid } = useParams<{ uid: string }>();
+  const { id } = useParams<{ id: string }>();
   const config = useAuthenticatedClientConfig();
-  const { data, isPending } = useCalculateElo(uid || "", { ...config });
+  const { data, isPending } = useCalculateElo(id || "", { ...config });
 
   return (
     <div className="flex flex-col gap-4">
@@ -16,7 +16,7 @@ const IdentityEloPage = () => {
         <div className="flex flex-col gap-1">
           <div className="text-lg font-semibold">ELO Calculator</div>
           <p className="text-sm text-muted-foreground">
-            ELO calculator for identity with UID {uid}
+            ELO calculator for identity with ID {id}
           </p>
         </div>
         {isPending && <Skeleton className="w-full h-40" />}

@@ -1,6 +1,6 @@
 import client from '@/lib/client'
-import type { ListIdentitiesQueryResponse } from '../types/ListIdentities.ts'
-import type { RequestConfig, ResponseConfig } from '@/lib/client'
+import type { ListIdentitiesQueryResponse } from '../../types/ListIdentities.ts'
+import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from '@/lib/client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
@@ -13,13 +13,13 @@ export type ListIdentitiesSuspenseQueryKey = ReturnType<typeof listIdentitiesSus
  * {@link /identities}
  */
 async function listIdentities(config: Partial<RequestConfig> = {}) {
-  const res = await client<ListIdentitiesQueryResponse, Error, unknown>({ method: 'GET', url: `/identities`, ...config })
+  const res = await client<ListIdentitiesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/identities`, ...config })
   return res
 }
 
 export function listIdentitiesSuspenseQueryOptions(config: Partial<RequestConfig> = {}) {
   const queryKey = listIdentitiesSuspenseQueryKey()
-  return queryOptions<ResponseConfig<ListIdentitiesQueryResponse>, Error, ResponseConfig<ListIdentitiesQueryResponse>, typeof queryKey>({
+  return queryOptions<ResponseConfig<ListIdentitiesQueryResponse>, ResponseErrorConfig<Error>, ResponseConfig<ListIdentitiesQueryResponse>, typeof queryKey>({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -38,7 +38,7 @@ export function useListIdentitiesSuspense<
   TQueryKey extends QueryKey = ListIdentitiesSuspenseQueryKey,
 >(
   options: {
-    query?: Partial<UseSuspenseQueryOptions<ResponseConfig<ListIdentitiesQueryResponse>, Error, TData, TQueryKey>>
+    query?: Partial<UseSuspenseQueryOptions<ResponseConfig<ListIdentitiesQueryResponse>, ResponseErrorConfig<Error>, TData, TQueryKey>>
     client?: Partial<RequestConfig>
   } = {},
 ) {
@@ -49,7 +49,7 @@ export function useListIdentitiesSuspense<
     ...(listIdentitiesSuspenseQueryOptions(config) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<TData, Error> & { queryKey: TQueryKey }
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

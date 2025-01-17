@@ -2,10 +2,10 @@ import type { Elo } from './Elo.ts'
 
 export type CalculateEloPathParams = {
   /**
-   * @description The UID of the identity to calculate the ELO for
+   * @description The ID of the identity to calculate the ELO for
    * @type string
    */
-  uid: string
+  id: string
 }
 
 /**

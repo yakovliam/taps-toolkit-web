@@ -88,7 +88,16 @@ const IdentityTable = ({ data }: IdentityTableProps) => {
       accessorKey: "uid",
       header: "UID",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("uid")}</div>
+        <Button
+          variant={"link"}
+          className="m-0 p-0"
+          onClick={() => {
+            navigate(`/identity/${row.original.id}`);
+          }}
+        >
+          {row.getValue("uid")}
+          <ExternalLink />
+        </Button>
       ),
     },
     {

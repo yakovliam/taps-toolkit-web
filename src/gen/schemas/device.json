@@ -1,0 +1,1 @@
+{"type":"object","required":["id","uid","longitude","latitude","deviceId","deviceToken"],"properties":{"id":{"type":"string"},"uid":{"type":"string"},"longitude":{"type":"number","format":"double"},"latitude":{"type":"number","format":"double"},"deviceId":{"type":"string"},"deviceToken":{"type":"strin"}},"x-readme-ref-name":"Device"}

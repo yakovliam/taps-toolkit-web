@@ -1,0 +1,1 @@
+{"type":"object","required":["phone","deviceId"],"properties":{"phone":{"type":"string"},"deviceId":{"type":"string"}},"x-readme-ref-name":"IdentityStartImportSessionRequest"}

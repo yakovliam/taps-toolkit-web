@@ -35,7 +35,7 @@ import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   phone: z.string().min(10).max(14),
-  deviceUid: z.string(),
+  id: z.string(),
 });
 
 const IdentityImportPage = () => {
@@ -49,16 +49,16 @@ const IdentityImportPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       phone: "",
-      deviceUid: "",
+      id: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const phoneNumber = values.phone;
-    const deviceUid = values.deviceUid;
+    const deviceId = values.id;
 
     startImportSession(
-      { data: { phone: phoneNumber, deviceUid: deviceUid } },
+      { data: { phone: phoneNumber, deviceId: deviceId } },
       {
         onSuccess: () => {
           navigate("/identity/import/otp");
@@ -80,10 +80,6 @@ const IdentityImportPage = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(devices);
-  }, [devices]);
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-4 p-4">
@@ -103,7 +99,7 @@ const IdentityImportPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="deviceUid"
+                  name="id"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Device</FormLabel>
@@ -124,8 +120,8 @@ const IdentityImportPage = () => {
                                 {field.value
                                   ? devices.find(
                                       (device) =>
-                                        device.deviceUid === field.value
-                                    )?.deviceUid
+                                        device.id === field.value
+                                    )?.uid
                                   : "Select device"}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
@@ -139,20 +135,20 @@ const IdentityImportPage = () => {
                                 <CommandGroup>
                                   {devices.map((device) => (
                                     <CommandItem
-                                      value={device.deviceUid}
-                                      key={device.deviceUid}
+                                      value={device.uid}
+                                      key={device.uid}
                                       onSelect={() => {
                                         form.setValue(
-                                          "deviceUid",
-                                          device.deviceUid
+                                          "id",
+                                          device.id
                                         );
                                       }}
                                     >
-                                      {device.deviceUid}
+                                      {device.uid}
                                       <Check
                                         className={cn(
                                           "ml-auto",
-                                          device.deviceUid === field.value
+                                          device.uid === field.value
                                             ? "opacity-100"
                                             : "opacity-0"
                                         )}

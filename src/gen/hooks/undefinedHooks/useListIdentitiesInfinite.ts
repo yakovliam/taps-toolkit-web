@@ -1,6 +1,6 @@
 import client from '@/lib/client'
-import type { ListIdentitiesQueryResponse } from '../types/ListIdentities.ts'
-import type { RequestConfig, ResponseConfig } from '@/lib/client'
+import type { ListIdentitiesQueryResponse } from '../../types/ListIdentities.ts'
+import type { RequestConfig, ResponseErrorConfig, ResponseConfig } from '@/lib/client'
 import type { InfiniteData, QueryKey, InfiniteQueryObserverOptions, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query'
 
@@ -13,13 +13,18 @@ export type ListIdentitiesInfiniteQueryKey = ReturnType<typeof listIdentitiesInf
  * {@link /identities}
  */
 async function listIdentities(config: Partial<RequestConfig> = {}) {
-  const res = await client<ListIdentitiesQueryResponse, Error, unknown>({ method: 'GET', url: `/identities`, ...config })
+  const res = await client<ListIdentitiesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/identities`, ...config })
   return res
 }
 
 export function listIdentitiesInfiniteQueryOptions(config: Partial<RequestConfig> = {}) {
   const queryKey = listIdentitiesInfiniteQueryKey()
-  return infiniteQueryOptions<ResponseConfig<ListIdentitiesQueryResponse>, Error, ResponseConfig<ListIdentitiesQueryResponse>, typeof queryKey>({
+  return infiniteQueryOptions<
+    ResponseConfig<ListIdentitiesQueryResponse>,
+    ResponseErrorConfig<Error>,
+    ResponseConfig<ListIdentitiesQueryResponse>,
+    typeof queryKey
+  >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -41,7 +46,7 @@ export function useListIdentitiesInfinite<
   TQueryKey extends QueryKey = ListIdentitiesInfiniteQueryKey,
 >(
   options: {
-    query?: Partial<InfiniteQueryObserverOptions<ResponseConfig<ListIdentitiesQueryResponse>, Error, TData, TQueryData, TQueryKey>>
+    query?: Partial<InfiniteQueryObserverOptions<ResponseConfig<ListIdentitiesQueryResponse>, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
     client?: Partial<RequestConfig>
   } = {},
 ) {
@@ -52,7 +57,7 @@ export function useListIdentitiesInfinite<
     ...(listIdentitiesInfiniteQueryOptions(config) as unknown as InfiniteQueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<InfiniteQueryObserverOptions, 'queryKey'>),
-  }) as UseInfiniteQueryResult<TData, Error> & { queryKey: TQueryKey }
+  }) as UseInfiniteQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

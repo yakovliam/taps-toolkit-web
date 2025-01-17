@@ -1,0 +1,1 @@
+{"required":["elo"],"properties":{"elo":{"type":"number","format":"double"}},"x-readme-ref-name":"Elo"}

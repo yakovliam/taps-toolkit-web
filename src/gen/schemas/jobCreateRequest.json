@@ -1,0 +1,1 @@
+{"type":"object","required":["friendlyName","description","targetFinalScore","gameConfigId","identityId"],"properties":{"friendlyName":{"type":"string"},"description":{"type":"string"},"targetFinalScore":{"type":"integer","format":"int64"},"gameConfigId":{"type":"string"},"identityId":{"type":"string"}},"x-readme-ref-name":"JobCreateRequest"}

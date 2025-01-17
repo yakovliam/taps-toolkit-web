@@ -2,10 +2,10 @@ import type { Identity } from './Identity.ts'
 
 export type GetIdentityPathParams = {
   /**
-   * @description The UID of the identity to retrieve
+   * @description The ID of the identity to retrieve
    * @type string
    */
-  uid: string
+  id: string
 }
 
 /**

@@ -14,6 +14,9 @@ export type { ListDevicesSuspenseQueryKey } from './hooks/undefinedHooks/useList
 export type { ListIdentitiesQueryKey } from './hooks/undefinedHooks/useListIdentities.ts'
 export type { ListIdentitiesInfiniteQueryKey } from './hooks/undefinedHooks/useListIdentitiesInfinite.ts'
 export type { ListIdentitiesSuspenseQueryKey } from './hooks/undefinedHooks/useListIdentitiesSuspense.ts'
+export type { ListJobsQueryKey } from './hooks/undefinedHooks/useListJobs.ts'
+export type { ListJobsInfiniteQueryKey } from './hooks/undefinedHooks/useListJobsInfinite.ts'
+export type { ListJobsSuspenseQueryKey } from './hooks/undefinedHooks/useListJobsSuspense.ts'
 export type { StartImportSessionMutationKey } from './hooks/undefinedHooks/useStartImportSession.ts'
 export type { CalculateEloPathParams, CalculateElo200, CalculateEloQueryResponse, CalculateEloQuery } from './types/CalculateElo.ts'
 export type {
@@ -31,8 +34,11 @@ export type { IdentityCompleteImportSessionRequest } from './types/IdentityCompl
 export type { IdentityCompleteImportSessionResponse } from './types/IdentityCompleteImportSessionResponse.ts'
 export type { IdentityStartImportSessionRequest } from './types/IdentityStartImportSessionRequest.ts'
 export type { IdentityStartImportSessionResponse } from './types/IdentityStartImportSessionResponse.ts'
+export type { Job } from './types/Job.ts'
+export type { JobCreateRequest } from './types/JobCreateRequest.ts'
 export type { ListDevices200, ListDevicesQueryResponse, ListDevicesQuery } from './types/ListDevices.ts'
 export type { ListIdentities200, ListIdentitiesQueryResponse, ListIdentitiesQuery } from './types/ListIdentities.ts'
+export type { ListJobs200, ListJobsQueryResponse, ListJobsQuery } from './types/ListJobs.ts'
 export type {
   StartImportSession200,
   StartImportSessionMutationRequest,
@@ -63,4 +69,7 @@ export {
   listIdentitiesSuspenseQueryOptions,
   useListIdentitiesSuspense,
 } from './hooks/undefinedHooks/useListIdentitiesSuspense.ts'
+export { listJobsQueryKey, listJobsQueryOptions, useListJobs } from './hooks/undefinedHooks/useListJobs.ts'
+export { listJobsInfiniteQueryKey, listJobsInfiniteQueryOptions, useListJobsInfinite } from './hooks/undefinedHooks/useListJobsInfinite.ts'
+export { listJobsSuspenseQueryKey, listJobsSuspenseQueryOptions, useListJobsSuspense } from './hooks/undefinedHooks/useListJobsSuspense.ts'
 export { startImportSessionMutationKey, useStartImportSession } from './hooks/undefinedHooks/useStartImportSession.ts'

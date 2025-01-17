@@ -14,8 +14,11 @@ export type { IdentityCompleteImportSessionRequest } from './IdentityCompleteImp
 export type { IdentityCompleteImportSessionResponse } from './IdentityCompleteImportSessionResponse.ts'
 export type { IdentityStartImportSessionRequest } from './IdentityStartImportSessionRequest.ts'
 export type { IdentityStartImportSessionResponse } from './IdentityStartImportSessionResponse.ts'
+export type { Job } from './Job.ts'
+export type { JobCreateRequest } from './JobCreateRequest.ts'
 export type { ListDevices200, ListDevicesQueryResponse, ListDevicesQuery } from './ListDevices.ts'
 export type { ListIdentities200, ListIdentitiesQueryResponse, ListIdentitiesQuery } from './ListIdentities.ts'
+export type { ListJobs200, ListJobsQueryResponse, ListJobsQuery } from './ListJobs.ts'
 export type {
   StartImportSession200,
   StartImportSessionMutationRequest,

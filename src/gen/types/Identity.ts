@@ -2,6 +2,10 @@ export type Identity = {
   /**
    * @type string
    */
+  id: string
+  /**
+   * @type string
+   */
   uid: string
   /**
    * @type string

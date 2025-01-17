@@ -5,12 +5,13 @@ import {
   CircleDollarSign,
   Fingerprint,
   Gamepad2,
+  Map,
   Smartphone,
 } from "lucide-react";
 
 import TAPSLogo from "@/assets/taps-toolkit-logo.svg?react";
 
-import { NavMain } from "./nav-main";
+import NavMain from "./nav-main";
 import { NavUser } from "./nav-user";
 import {
   Sidebar,
@@ -22,22 +23,17 @@ import {
 import { NavHeader } from "./nav-header";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navHeader: {
     name: "TAPS Toolkit",
     logo: TAPSLogo,
     plan: "Enterprise",
   },
-
   navMain: [
     {
       title: "Identity",
       url: "#",
       icon: Fingerprint,
+      id: "identity",
       items: [
         {
           title: "List",
@@ -53,6 +49,7 @@ const data = {
       title: "Devices",
       url: "#",
       icon: Smartphone,
+      id: "devices",
       items: [
         {
           title: "List",
@@ -68,6 +65,7 @@ const data = {
       title: "Models",
       url: "#",
       icon: Bot,
+      id: "models",
       items: [
         {
           title: "Dashboard",
@@ -91,18 +89,19 @@ const data = {
       title: "Game Jobs",
       url: "#",
       icon: Gamepad2,
+      id: "jobs",
       items: [
         {
-          title: "Dashboard",
-          url: "/jobs",
+          title: "List",
+          url: "/job/list",
         },
         {
           title: "Create Job",
-          url: "/jobs/create",
+          url: "/job/create",
         },
         {
           title: "Job History",
-          url: "/jobs/history",
+          url: "/job/history",
         },
       ],
     },
@@ -110,6 +109,7 @@ const data = {
       title: "Cash Out",
       url: "#",
       icon: CircleDollarSign,
+      id: "cash-out",
       items: [
         {
           title: "Dashboard",
@@ -129,6 +129,7 @@ const data = {
       title: "Statistics",
       url: "#",
       icon: ChartScatter,
+      id: "statistics",
       items: [
         {
           title: "Analytics",
@@ -140,8 +141,22 @@ const data = {
         },
       ],
     },
+    {
+      title: "Map",
+      url: "/map",
+      icon: Map,
+      id: "map",
+      items: [
+        {
+          title: "All Devices",
+          url: "/map/all-devices",
+        },
+      ],
+    },
   ],
 };
+
+export type OnOpenChange = (id: string, open: boolean) => void;
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -150,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavHeader data={data.navHeader} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={data.navMain} onOpenChange={() => {}} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

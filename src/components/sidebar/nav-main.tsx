@@ -18,10 +18,12 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
+const NavMain = ({
   items,
+  onOpenChange,
 }: {
   items: {
+    id: string;
     title: string;
     url: string;
     icon?: LucideIcon;
@@ -31,7 +33,8 @@ export function NavMain({
       url: string;
     }[];
   }[];
-}) {
+  onOpenChange: (id: string, open: boolean) => void;
+}) => {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -41,6 +44,7 @@ export function NavMain({
             key={item.title}
             asChild
             defaultOpen={item.isActive}
+            onOpenChange={(open) => onOpenChange(item.id, open)}
             className="group/collapsible"
           >
             <SidebarMenuItem>
@@ -70,4 +74,6 @@ export function NavMain({
       </SidebarMenu>
     </SidebarGroup>
   );
-}
+};
+
+export default NavMain;
