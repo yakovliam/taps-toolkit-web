@@ -1,0 +1,1 @@
+{"type":"object","required":["id","gameId","name","type"],"properties":{"id":{"type":"string"},"gameId":{"type":"string"},"name":{"type":"string"},"type":{"type":"string"}},"x-readme-ref-name":"GameConfig"}

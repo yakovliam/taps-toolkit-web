@@ -30,13 +30,13 @@ export type Job = {
   /**
    * @type array
    */
-  gameScoreEntityList: string[]
+  gameScoreIdList: string[]
   /**
-   * @type string | undefined
+   * @type string
    */
-  identityId?: string
+  identityId: string
   /**
-   * @type string | undefined
+   * @type string
    */
-  gameConfigId?: string
+  gameConfigId: string
 }

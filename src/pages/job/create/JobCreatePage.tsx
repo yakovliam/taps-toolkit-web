@@ -1,4 +1,11 @@
-import { Identity, JobCreateRequest, useListIdentities } from "@/gen";
+import {
+  GameConfig,
+  Identity,
+  JobCreateRequest,
+  useCreateJob,
+  useListGameConfigs,
+  useListIdentities,
+} from "@/gen";
 import useAuthenticatedClientConfig from "@/hooks/use-authenticated-client-config";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -31,6 +38,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useNavigate } from "react-router";
+import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   friendlyName: z.string().nonempty(),
@@ -41,17 +50,28 @@ const formSchema = z.object({
 });
 
 const JobCreatePage = () => {
+  const navigate = useNavigate();
   const config = useAuthenticatedClientConfig();
   const { data: identitiesData, isPending: identitiesIsPending } =
     useListIdentities({ ...config });
+  const { data: gameConfigsData, isPending: gameConfigsIsPending } =
+    useListGameConfigs({ ...config });
+  const { mutate: createJob } = useCreateJob({ ...config });
 
   const [identities, setIdentities] = useState<Identity[]>([]);
+  const [gameConfigs, setGameConfigs] = useState<GameConfig[]>([]);
 
   useEffect(() => {
     if (identitiesData) {
       setIdentities(identitiesData.data);
     }
   }, [identitiesData]);
+
+  useEffect(() => {
+    if (gameConfigsData) {
+      setGameConfigs(gameConfigsData.data);
+    }
+  }, [gameConfigsData]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,8 +85,7 @@ const JobCreatePage = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    alert(JSON.stringify(values, null, 2));
-    const request: JobCreateRequest = {
+    const jobCreateRequestObject: JobCreateRequest = {
       friendlyName: values.friendlyName,
       description: values.description,
       targetFinalScore: values.targetFinalScore,
@@ -74,7 +93,21 @@ const JobCreatePage = () => {
       identityId: values.identityId,
     };
 
-    console.log(request);
+    createJob(
+      { data: jobCreateRequestObject },
+      {
+        onSuccess: () => {
+          navigate("/job/list");
+        },
+        onError: (error) => {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        },
+      }
+    );
   }
 
   return (
@@ -92,6 +125,77 @@ const JobCreatePage = () => {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4"
               >
+                <FormField
+                  control={form.control}
+                  name="gameConfigId"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Game Config</FormLabel>
+                      {gameConfigsIsPending ? (
+                        <Spinner />
+                      ) : (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                className={cn(
+                                  "w-full justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? gameConfigs.find(
+                                      (gameConfig) =>
+                                        gameConfig.id === field.value
+                                    )?.name
+                                  : "Select game config"}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-full p-0">
+                            <Command>
+                              <CommandInput placeholder="Search game configs..." />
+                              <CommandList>
+                                <CommandEmpty>
+                                  No game configs found.
+                                </CommandEmpty>
+                                <CommandGroup>
+                                  {gameConfigs.map((gameConfig) => (
+                                    <CommandItem
+                                      value={gameConfig.id}
+                                      key={gameConfig.id}
+                                      onSelect={() => {
+                                        form.setValue(
+                                          "gameConfigId",
+                                          gameConfig.id
+                                        );
+                                      }}
+                                    >
+                                      {gameConfig.name}
+                                      <Check
+                                        className={cn(
+                                          "ml-auto",
+                                          gameConfig.id === field.value
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="identityId"
@@ -123,9 +227,11 @@ const JobCreatePage = () => {
                           </PopoverTrigger>
                           <PopoverContent className="w-full p-0">
                             <Command>
-                              <CommandInput placeholder="Search devices..." />
+                              <CommandInput placeholder="Search identities..." />
                               <CommandList>
-                                <CommandEmpty>No devices found.</CommandEmpty>
+                                <CommandEmpty>
+                                  No identities found.
+                                </CommandEmpty>
                                 <CommandGroup>
                                   {identities.map((identity) => (
                                     <CommandItem

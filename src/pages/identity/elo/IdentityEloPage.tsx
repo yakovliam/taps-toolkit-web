@@ -19,17 +19,20 @@ const IdentityEloPage = () => {
             ELO calculator for identity with ID {id}
           </p>
         </div>
-        {isPending && <Skeleton className="w-full h-40" />}
-        <div className="flex flex-col gap-4 justify-center items-center">
-          <Card className="p-8 w-full">
-            <CardContent className="p-0 flex flex-col items-center justify-center gap-4">
-              <p className="whitespace-pre-wrap text-8xl font-medium tracking-tighter text-black dark:text-white">
-                <NumberTicker value={data?.data.elo ?? 0} decimalPlaces={2} />
-              </p>
-              <p className="text-sm text-muted-foreground">Estimated ELO</p>
-            </CardContent>
-          </Card>
-        </div>
+        {isPending ? (
+          <Skeleton className="w-full h-40" />
+        ) : (
+          <div className="flex flex-col gap-4 justify-center items-center">
+            <Card className="p-8 w-full">
+              <CardContent className="p-0 flex flex-col items-center justify-center gap-4">
+                <p className="whitespace-pre-wrap text-8xl font-medium tracking-tighter text-black dark:text-white">
+                  <NumberTicker value={data?.data.elo ?? 0} decimalPlaces={2} />
+                </p>
+                <p className="text-sm text-muted-foreground">Estimated ELO</p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );

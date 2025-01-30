@@ -2,15 +2,22 @@ export type { CalculateEloQueryKey } from './hooks/undefinedHooks/useCalculateEl
 export type { CalculateEloInfiniteQueryKey } from './hooks/undefinedHooks/useCalculateEloInfinite.ts'
 export type { CalculateEloSuspenseQueryKey } from './hooks/undefinedHooks/useCalculateEloSuspense.ts'
 export type { CompleteImportSessionMutationKey } from './hooks/undefinedHooks/useCompleteImportSession.ts'
+export type { CreateJobMutationKey } from './hooks/undefinedHooks/useCreateJob.ts'
 export type { GetDeviceQueryKey } from './hooks/undefinedHooks/useGetDevice.ts'
 export type { GetDeviceInfiniteQueryKey } from './hooks/undefinedHooks/useGetDeviceInfinite.ts'
 export type { GetDeviceSuspenseQueryKey } from './hooks/undefinedHooks/useGetDeviceSuspense.ts'
 export type { GetIdentityQueryKey } from './hooks/undefinedHooks/useGetIdentity.ts'
 export type { GetIdentityInfiniteQueryKey } from './hooks/undefinedHooks/useGetIdentityInfinite.ts'
 export type { GetIdentitySuspenseQueryKey } from './hooks/undefinedHooks/useGetIdentitySuspense.ts'
+export type { GetJobQueryKey } from './hooks/undefinedHooks/useGetJob.ts'
+export type { GetJobInfiniteQueryKey } from './hooks/undefinedHooks/useGetJobInfinite.ts'
+export type { GetJobSuspenseQueryKey } from './hooks/undefinedHooks/useGetJobSuspense.ts'
 export type { ListDevicesQueryKey } from './hooks/undefinedHooks/useListDevices.ts'
 export type { ListDevicesInfiniteQueryKey } from './hooks/undefinedHooks/useListDevicesInfinite.ts'
 export type { ListDevicesSuspenseQueryKey } from './hooks/undefinedHooks/useListDevicesSuspense.ts'
+export type { ListGameConfigsQueryKey } from './hooks/undefinedHooks/useListGameConfigs.ts'
+export type { ListGameConfigsInfiniteQueryKey } from './hooks/undefinedHooks/useListGameConfigsInfinite.ts'
+export type { ListGameConfigsSuspenseQueryKey } from './hooks/undefinedHooks/useListGameConfigsSuspense.ts'
 export type { ListIdentitiesQueryKey } from './hooks/undefinedHooks/useListIdentities.ts'
 export type { ListIdentitiesInfiniteQueryKey } from './hooks/undefinedHooks/useListIdentitiesInfinite.ts'
 export type { ListIdentitiesSuspenseQueryKey } from './hooks/undefinedHooks/useListIdentitiesSuspense.ts'
@@ -25,10 +32,13 @@ export type {
   CompleteImportSessionMutationResponse,
   CompleteImportSessionMutation,
 } from './types/CompleteImportSession.ts'
+export type { CreateJob200, CreateJobMutationRequest, CreateJobMutationResponse, CreateJobMutation } from './types/CreateJob.ts'
 export type { Device } from './types/Device.ts'
 export type { Elo } from './types/Elo.ts'
+export type { GameConfig } from './types/GameConfig.ts'
 export type { GetDevicePathParams, GetDevice200, GetDeviceQueryResponse, GetDeviceQuery } from './types/GetDevice.ts'
 export type { GetIdentityPathParams, GetIdentity200, GetIdentityQueryResponse, GetIdentityQuery } from './types/GetIdentity.ts'
+export type { GetJobPathParams, GetJob200, GetJobQueryResponse, GetJobQuery } from './types/GetJob.ts'
 export type { Identity } from './types/Identity.ts'
 export type { IdentityCompleteImportSessionRequest } from './types/IdentityCompleteImportSessionRequest.ts'
 export type { IdentityCompleteImportSessionResponse } from './types/IdentityCompleteImportSessionResponse.ts'
@@ -37,6 +47,7 @@ export type { IdentityStartImportSessionResponse } from './types/IdentityStartIm
 export type { Job } from './types/Job.ts'
 export type { JobCreateRequest } from './types/JobCreateRequest.ts'
 export type { ListDevices200, ListDevicesQueryResponse, ListDevicesQuery } from './types/ListDevices.ts'
+export type { ListGameConfigs200, ListGameConfigsQueryResponse, ListGameConfigsQuery } from './types/ListGameConfigs.ts'
 export type { ListIdentities200, ListIdentitiesQueryResponse, ListIdentitiesQuery } from './types/ListIdentities.ts'
 export type { ListJobs200, ListJobsQueryResponse, ListJobsQuery } from './types/ListJobs.ts'
 export type {
@@ -49,15 +60,30 @@ export { calculateEloQueryKey, calculateEloQueryOptions, useCalculateElo } from 
 export { calculateEloInfiniteQueryKey, calculateEloInfiniteQueryOptions, useCalculateEloInfinite } from './hooks/undefinedHooks/useCalculateEloInfinite.ts'
 export { calculateEloSuspenseQueryKey, calculateEloSuspenseQueryOptions, useCalculateEloSuspense } from './hooks/undefinedHooks/useCalculateEloSuspense.ts'
 export { completeImportSessionMutationKey, useCompleteImportSession } from './hooks/undefinedHooks/useCompleteImportSession.ts'
+export { createJobMutationKey, useCreateJob } from './hooks/undefinedHooks/useCreateJob.ts'
 export { getDeviceQueryKey, getDeviceQueryOptions, useGetDevice } from './hooks/undefinedHooks/useGetDevice.ts'
 export { getDeviceInfiniteQueryKey, getDeviceInfiniteQueryOptions, useGetDeviceInfinite } from './hooks/undefinedHooks/useGetDeviceInfinite.ts'
 export { getDeviceSuspenseQueryKey, getDeviceSuspenseQueryOptions, useGetDeviceSuspense } from './hooks/undefinedHooks/useGetDeviceSuspense.ts'
 export { getIdentityQueryKey, getIdentityQueryOptions, useGetIdentity } from './hooks/undefinedHooks/useGetIdentity.ts'
 export { getIdentityInfiniteQueryKey, getIdentityInfiniteQueryOptions, useGetIdentityInfinite } from './hooks/undefinedHooks/useGetIdentityInfinite.ts'
 export { getIdentitySuspenseQueryKey, getIdentitySuspenseQueryOptions, useGetIdentitySuspense } from './hooks/undefinedHooks/useGetIdentitySuspense.ts'
+export { getJobQueryKey, getJobQueryOptions, useGetJob } from './hooks/undefinedHooks/useGetJob.ts'
+export { getJobInfiniteQueryKey, getJobInfiniteQueryOptions, useGetJobInfinite } from './hooks/undefinedHooks/useGetJobInfinite.ts'
+export { getJobSuspenseQueryKey, getJobSuspenseQueryOptions, useGetJobSuspense } from './hooks/undefinedHooks/useGetJobSuspense.ts'
 export { listDevicesQueryKey, listDevicesQueryOptions, useListDevices } from './hooks/undefinedHooks/useListDevices.ts'
 export { listDevicesInfiniteQueryKey, listDevicesInfiniteQueryOptions, useListDevicesInfinite } from './hooks/undefinedHooks/useListDevicesInfinite.ts'
 export { listDevicesSuspenseQueryKey, listDevicesSuspenseQueryOptions, useListDevicesSuspense } from './hooks/undefinedHooks/useListDevicesSuspense.ts'
+export { listGameConfigsQueryKey, listGameConfigsQueryOptions, useListGameConfigs } from './hooks/undefinedHooks/useListGameConfigs.ts'
+export {
+  listGameConfigsInfiniteQueryKey,
+  listGameConfigsInfiniteQueryOptions,
+  useListGameConfigsInfinite,
+} from './hooks/undefinedHooks/useListGameConfigsInfinite.ts'
+export {
+  listGameConfigsSuspenseQueryKey,
+  listGameConfigsSuspenseQueryOptions,
+  useListGameConfigsSuspense,
+} from './hooks/undefinedHooks/useListGameConfigsSuspense.ts'
 export { listIdentitiesQueryKey, listIdentitiesQueryOptions, useListIdentities } from './hooks/undefinedHooks/useListIdentities.ts'
 export {
   listIdentitiesInfiniteQueryKey,

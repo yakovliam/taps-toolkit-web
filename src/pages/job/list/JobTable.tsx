@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, ExternalLink, MoreHorizontal } from "lucide-react";
-
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -33,6 +33,7 @@ import {
 import { Job } from "@/gen";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { cn } from "@/lib/utils";
 
 type JobTableProps = {
   data: Job[];
@@ -105,8 +106,8 @@ const JobTable = ({ data }: JobTableProps) => {
       accessorKey: "created",
       header: "Created",
       cell: ({ row }) => (
-        <div className="overflow-hidden text-ellipsis line-clamp-1">
-          {row.getValue("created")}
+        <div>
+          {new Date(row.getValue("created")).toLocaleString()}
         </div>
       ),
     },
@@ -115,8 +116,17 @@ const JobTable = ({ data }: JobTableProps) => {
       header: "Did Complete",
       cell: ({ row }) => (
         <div className="overflow-hidden text-ellipsis line-clamp-1">
-          {console.log(row.original) ?? <></>}
-          {row.getValue("didComplete")}
+          <Badge
+            variant={"secondary"}
+            className={cn(
+              "capitalize",
+              !row.getValue("didComplete")
+                ? "bg-red-300 text-red-800"
+                : "bg-green-300 text-green-800"
+            )}
+          >
+            {row.getValue("didComplete") ? "Yes" : "No"}
+          </Badge>
         </div>
       ),
     },
@@ -125,7 +135,17 @@ const JobTable = ({ data }: JobTableProps) => {
       header: "Is Archived",
       cell: ({ row }) => (
         <div className="overflow-hidden text-ellipsis line-clamp-1">
-          {row.getValue("isArchived")}
+          <Badge
+            variant={"secondary"}
+            className={cn(
+              "capitalize",
+              row.getValue("isArchived")
+                ? "bg-red-300 text-red-800"
+                : "bg-green-300 text-green-800"
+            )}
+          >
+            {row.getValue("isArchived") ? "Yes" : "No"}
+          </Badge>
         </div>
       ),
     },

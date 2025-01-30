@@ -169,7 +169,7 @@ const IdentityTable = ({ data }: IdentityTableProps) => {
               <DropdownMenuItem onClick={() => {}}>Cash out</DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
-                  navigate(`/identity/${row.getValue("uid")}/elo`);
+                  navigate(`/identity/${row.original.id}/elo`);
                 }}
               >
                 Calculate ELO
